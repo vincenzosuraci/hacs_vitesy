@@ -1,0 +1,16 @@
+{
+  "domain": "vitesy",
+  "name": "Vitesy",
+  "version": "0.0.1",
+  "homeassistant": "2024.8.0",
+  "documentation": "https://github.com/vincenzosuraci/hacs_vitesy",
+  "dependencies": [],
+  "codeowners": [
+    "@vincenzosuraci"
+  ],
+  "integration_type": "device",
+  "issue_tracker": "https://github.com/vincenzosuraci/hacs_vitesy/issues",
+  "requirements": [],
+  "iot_class": "cloud_polling",
+  "config_flow": true
+}
