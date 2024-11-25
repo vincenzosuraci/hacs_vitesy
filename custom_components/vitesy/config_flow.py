@@ -3,12 +3,12 @@ from homeassistant.config_entries import ConfigFlow, OptionsFlow, CONN_CLASS_CLO
 from homeassistant.core import callback
 from homeassistant.helpers import config_validation as cv
 from .const import DOMAIN, CONF_ICCID, CONF_USERNAME, CONF_PASSWORD
-from .vitesy_device import OnceDevice
+from .vitesy_device import VitesyDevice
 
 import logging
 _LOGGER = logging.getLogger(__name__)
 
-class OnceConfigFlow(ConfigFlow, domain=DOMAIN):
+class VitesyConfigFlow(ConfigFlow, domain=DOMAIN):
     """Gestisce il flusso di configurazione per la SIM 1nce"""
 
     VERSION = 1
@@ -29,7 +29,7 @@ class OnceConfigFlow(ConfigFlow, domain=DOMAIN):
 
             if iccid and username and password:
 
-                device = OnceDevice(params={
+                device = VitesyDevice(params={
                     "username": username,
                     "password": password,
                     "iccid": iccid
@@ -77,9 +77,9 @@ class OnceConfigFlow(ConfigFlow, domain=DOMAIN):
     @staticmethod
     @callback
     def async_get_options_flow(config_entry):
-        return OnceOptionsFlow(config_entry)
+        return VitesyOptionsFlow(config_entry)
 
-class OnceOptionsFlow(OptionsFlow):
+class VitesyOptionsFlow(OptionsFlow):
     """Gestione delle opzioni aggiuntive per ZyXEL Modem."""
 
     def __init__(self, config_entry):

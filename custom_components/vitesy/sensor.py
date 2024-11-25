@@ -6,14 +6,14 @@ from homeassistant.helpers.entity import DeviceInfo
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from homeassistant.components.sensor import SensorDeviceClass
 from .const import *
-from .coordinator import OnceCoordinator
+from .coordinator import VitesyCoordinator
 
 _LOGGER = logging.getLogger(__name__)
 
 
-class OnceSensor(CoordinatorEntity, SensorEntity):
+class VitesySensor(CoordinatorEntity, SensorEntity):
 
-    def __init__(self, coordinator: OnceCoordinator, device_info: DeviceInfo, description: SensorEntityDescription):
+    def __init__(self, coordinator: VitesyCoordinator, device_info: DeviceInfo, description: SensorEntityDescription):
         """Inizializza il sensore."""
         super().__init__(coordinator)
 
@@ -49,7 +49,7 @@ class OnceSensor(CoordinatorEntity, SensorEntity):
         )
 
 
-async def get_sensors(coordinator: OnceCoordinator, device_info: DeviceInfo):
+async def get_sensors(coordinator: VitesyCoordinator, device_info: DeviceInfo):
 
     sensors = []
 
@@ -60,7 +60,7 @@ async def get_sensors(coordinator: OnceCoordinator, device_info: DeviceInfo):
         device_id = await coordinator.device.get_id()
 
         if SENSOR_VOLUME in data:
-            sensors.append(OnceSensor(coordinator, device_info, SensorEntityDescription(
+            sensors.append(VitesySensor(coordinator, device_info, SensorEntityDescription(
                 key=device_id + "_" + str(SENSOR_VOLUME).lower().replace(" ", "_"),
                 name=SENSOR_VOLUME,
                 icon="mdi:web",
@@ -70,7 +70,7 @@ async def get_sensors(coordinator: OnceCoordinator, device_info: DeviceInfo):
                 state_class=SensorStateClass.MEASUREMENT
             )))
         if SENSOR_TOTAL_VOLUME in data:
-            sensors.append(OnceSensor(coordinator, device_info, SensorEntityDescription(
+            sensors.append(VitesySensor(coordinator, device_info, SensorEntityDescription(
                 key=device_id + "_" + str(SENSOR_TOTAL_VOLUME).lower().replace(" ", "_"),
                 name=SENSOR_TOTAL_VOLUME,
                 icon="mdi:web",
@@ -80,7 +80,7 @@ async def get_sensors(coordinator: OnceCoordinator, device_info: DeviceInfo):
                 state_class=SensorStateClass.MEASUREMENT
             )))
         if SENSOR_EXPIRY_DATE in data:
-            sensors.append(OnceSensor(coordinator, device_info, SensorEntityDescription(
+            sensors.append(VitesySensor(coordinator, device_info, SensorEntityDescription(
                 key=device_id + "_" + str(SENSOR_EXPIRY_DATE).lower().replace(" ", "_"),
                 name=SENSOR_EXPIRY_DATE,
                 icon="mdi:calendar-clock",

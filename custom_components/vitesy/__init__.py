@@ -4,9 +4,8 @@ _LOGGER = logging.getLogger(__name__)
 from .const import (
     SENSOR,
     DOMAIN,
-    CONF_ICCID,
-    CONF_USERNAME,
-    CONF_PASSWORD,
+    CONF_ACCESS_TOKEN,
+    CONF_ID_TOKEN,
 )
 
 try:
@@ -14,23 +13,21 @@ try:
     from homeassistant.config_entries import ConfigEntry
 
     from .sensor import async_setup_entry as async_setup_sensors
-    from .vitesy_device import OnceDevice
-    from .coordinator import OnceCoordinator
+    from .vitesy_device import VitesyDevice
+    from .coordinator import VitesyCoordinator
 
     async def async_setup_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> bool:
 
-        iccid = config_entry.data[CONF_ICCID]
-        username = config_entry.data[CONF_USERNAME]
-        password = config_entry.data[CONF_PASSWORD]
+        access_token = config_entry.data[CONF_ACCESS_TOKEN]
+        id_token = config_entry.data[CONF_ID_TOKEN]
 
-        device = OnceDevice(params={
-            "username": username,
-            "password": password,
-            "iccid": iccid
+        device = VitesyDevice(params={
+            "access_token": access_token,
+            "id_token": id_token
         })
 
         # Inizializza il coordinatore
-        coordinator = OnceCoordinator(hass, device)
+        coordinator = VitesyCoordinator(hass, device)
 
         # Memorizza il coordinatore nel registro dei dati di Home Assistant
         hass.data.setdefault(DOMAIN, {})[config_entry.entry_id] = coordinator

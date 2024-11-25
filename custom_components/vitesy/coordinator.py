@@ -12,14 +12,14 @@ from homeassistant.helpers.update_coordinator import (
     UpdateFailed,
 )
 
-from .vitesy import OnceError, OnceAuthError
+from .vitesy import VitesyError, VitesyAuthError
 
 from .const import DOMAIN, UPDATE_INTERVAL_S
 
 _LOGGER = logging.getLogger(__name__)
 
 
-class OnceCoordinator(DataUpdateCoordinator):
+class VitesyCoordinator(DataUpdateCoordinator):
 
     def __init__(self, hass, device):
         super().__init__(
@@ -54,10 +54,10 @@ class OnceCoordinator(DataUpdateCoordinator):
                 # Note: using context is not required if there is no need or ability to limit
                 # data retrieved from API.
                 return await self.device.fetch_data()
-        except OnceAuthError as err:
+        except VitesyAuthError as err:
             # Raising ConfigEntryAuthFailed will cancel future updates
             # and start a config flow with SOURCE_REAUTH (async_step_reauth)
             raise ConfigEntryAuthFailed from err
-        except OnceError as err:
+        except VitesyError as err:
             raise UpdateFailed(f"{err}")
 

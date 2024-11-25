@@ -1,4 +1,4 @@
-from .vitesy import Once
+from .vitesy import Vitesy
 
 from .const import *
 
@@ -6,7 +6,7 @@ import logging
 _LOGGER = logging.getLogger(__name__)
 
 
-class OnceDevice(Once):
+class VitesyDevice(Vitesy):
 
     def debug(self, msg):
         _LOGGER.debug(msg)
