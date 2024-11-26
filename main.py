@@ -13,13 +13,11 @@ if __name__ == "__main__":
     # Load the .env file
     load_dotenv()
 
-    access_token = os.getenv("ACCESS_TOKEN")
-    id_token = os.getenv("ID_TOKEN")
-
     from custom_components.vitesy.vitesy import Vitesy
+    from custom_components.vitesy.const import CONF_ACCESS_TOKEN, CONF_ID_TOKEN
     VitesyObj = Vitesy(params={
-        'access_token': access_token,
-        'id_token': id_token,
+        CONF_ACCESS_TOKEN: os.getenv("ACCESS_TOKEN"),
+        CONF_ID_TOKEN: os.getenv("ID_TOKEN"),
     })
 
     import asyncio

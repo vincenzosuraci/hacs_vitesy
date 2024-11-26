@@ -9,7 +9,7 @@ import logging
 _LOGGER = logging.getLogger(__name__)
 
 class VitesyConfigFlow(ConfigFlow, domain=DOMAIN):
-    """Gestisce il flusso di configurazione per la SIM 1nce"""
+    """Gestisce il flusso di configurazione"""
 
     VERSION = 1
     CONNECTION_CLASS = CONN_CLASS_CLOUD_POLL
